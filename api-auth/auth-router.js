@@ -21,13 +21,12 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
-  console.log({ username })
 
   Users.findBy({ username })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-        res.status(200).json({ message: `Welcome, ${user.username}` })
+        res.status(200).json({ message: `${user.username} is now logged in` })
       } else {
         res.status(401).json({ message: 'Invalid Credentials' });
       }
